@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FagNet.Core", "FagNet.Core\FagNet.Core.csproj", "{ECCF4EBF-8042-4007-AC89-17C09DB162F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FagNetAuth", "FagNetAuth\FagNetAuth.csproj", "{9F9E570A-932B-4202-A010-A98EB2CAA4D5}"
@@ -10,6 +12,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FagNetGame", "FagNetGame\FagNetGame.csproj", "{75272FD8-A514-4173-83E8-C6D50747EAA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FagNetRelay", "FagNetRelay\FagNetRelay.csproj", "{D8D22061-8B4A-41A4-8996-03812687E4B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{8189C9A6-03B4-4132-92E3-7FB5FEDB07A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomRoomRules", "Plugins\CustomRoomRules\CustomRoomRules\CustomRoomRules.csproj", "{9A898ACD-12AD-4815-B232-CD653B91FFBD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GMCommands", "Plugins\GMCommands\GMCommands\GMCommands.csproj", "{E82863E3-B112-48C6-96DC-8934D1F6EF84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PityRemove", "Plugins\PityRemove\PityRemove\PityRemove.csproj", "{0AE81839-DD40-449C-9081-D5BE74D09520}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveStats", "Plugins\RemoveStats\RemoveStats\RemoveStats.csproj", "{10F46091-2D05-4E72-A592-D396486952D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,8 +49,33 @@ Global
 		{D8D22061-8B4A-41A4-8996-03812687E4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8D22061-8B4A-41A4-8996-03812687E4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8D22061-8B4A-41A4-8996-03812687E4B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A898ACD-12AD-4815-B232-CD653B91FFBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A898ACD-12AD-4815-B232-CD653B91FFBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A898ACD-12AD-4815-B232-CD653B91FFBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A898ACD-12AD-4815-B232-CD653B91FFBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E82863E3-B112-48C6-96DC-8934D1F6EF84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E82863E3-B112-48C6-96DC-8934D1F6EF84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E82863E3-B112-48C6-96DC-8934D1F6EF84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E82863E3-B112-48C6-96DC-8934D1F6EF84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AE81839-DD40-449C-9081-D5BE74D09520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE81839-DD40-449C-9081-D5BE74D09520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE81839-DD40-449C-9081-D5BE74D09520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE81839-DD40-449C-9081-D5BE74D09520}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10F46091-2D05-4E72-A592-D396486952D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F46091-2D05-4E72-A592-D396486952D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F46091-2D05-4E72-A592-D396486952D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F46091-2D05-4E72-A592-D396486952D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A898ACD-12AD-4815-B232-CD653B91FFBD} = {8189C9A6-03B4-4132-92E3-7FB5FEDB07A1}
+		{E82863E3-B112-48C6-96DC-8934D1F6EF84} = {8189C9A6-03B4-4132-92E3-7FB5FEDB07A1}
+		{0AE81839-DD40-449C-9081-D5BE74D09520} = {8189C9A6-03B4-4132-92E3-7FB5FEDB07A1}
+		{10F46091-2D05-4E72-A592-D396486952D3} = {8189C9A6-03B4-4132-92E3-7FB5FEDB07A1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F91DAA6D-CF14-4358-995D-F18F42D68A6B}
 	EndGlobalSection
 EndGlobal
