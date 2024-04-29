@@ -642,7 +642,7 @@ namespace FagNetGame
         private void HandleSelectCharacter(TcpSession session, Packet p)
         {
             var slot = p.ReadByte();
-            //_logger.Debug("-C_SELECT_CHARACTER_REQ- Slot: {0}", slot);
+            // _logger.Debug("-C_SELECT_CHARACTER_REQ- Slot: {0}", slot);
 
             Player plr;
             if (!Players.TryGetValue(session.Guid, out plr))
@@ -666,7 +666,7 @@ namespace FagNetGame
         private void HandleDeleteCharacter(TcpSession session, Packet p)
         {
             var slot = p.ReadByte();
-            //_logger.Debug("-C_SELECT_CHARACTER_REQ- Slot: {0}", slot);
+            // _logger.Debug("-C_SELECT_CHARACTER_REQ- Slot: {0}", slot);
 
             Player plr;
             if (!Players.TryGetValue(session.Guid, out plr))
@@ -698,22 +698,22 @@ namespace FagNetGame
         private void HandleAvatarChange(TcpSession session, Packet p)
         {
             // TODO
-            //ulong accountID = p.ReadUInt64();
+            // ulong accountID = p.ReadUInt64();
 
-            ////Costume Ids                           
-            //for (int i = 0; i < 7; i++)
+            // //Costume Ids                           
+            // for (int i = 0; i < 7; i++)
             //    p.ReadInt32();
 
-            ////Skill ids (Action)
-            //for (int i = 0; i < 2; i++)
+            // //Skill ids (Action)
+            // for (int i = 0; i < 2; i++)
             //    p.ReadInt32();
 
-            ////Weapon Ids
-            //for (int i = 0; i < 3; i++)
+            // //Weapon Ids
+            // for (int i = 0; i < 3; i++)
             //    p.ReadInt32();
 
 
-            //_logger.Debug("-C_AVATAR_CHANGE_REQ-");
+            // _logger.Debug("-C_AVATAR_CHANGE_REQ-");
 
             Player plr;
             if (!Players.TryGetValue(session.Guid, out plr))
@@ -842,6 +842,7 @@ namespace FagNetGame
             uint penCost = 0;
             uint apCost = 0;
 
+            Packet ack;
             for (var i = 0; i < count; i++)
             {
                 var item = new Item();
@@ -852,14 +853,40 @@ namespace FagNetGame
                 item.ProductID = p.ReadByte();
                 item.EffectID = p.ReadUInt32();
                 item.PurchaseTime = HelperUtils.GetUnixTimestamp(buyTime);
-
+                
                 var shopItem = GameDatabase.Instance.GetShopItem(item.Category, item.SubCategory, item.ItemID, item.ProductID);
                 if (shopItem == null) // hacker
                 {
                     Logger.Error("-CBuyItemReq FAILED(HAX)- ItemID: {0} Category: {1} SubCategory: {2} Type: {3} EffectID: {4}", item.ItemID, item.Category, item.SubCategory, item.ProductID, item.EffectID);
-                    session.StopListening();
+                    // session.StopListening();
+                    var comment = "";
+                    switch (item.Category)
+                    {
+                        case 1:
+                            comment = "Costume";
+                            break;
+
+                        case 2:
+                            comment = "Weapon";
+                            break;
+
+                        case 3:
+                            comment = "Skill";
+                            break;
+
+                        default:
+                            comment = "Unk";
+                            break;
+                    }
+
+                    ack = new Packet(EGamePacket.SResultAck);
+                    ack.Write((uint)EServerResult.FailedToRequestTask);
+                    session.Send(ack);
+                    GameDatabase.Instance.AddShopItem(item, comment);
+                    Logger.Info("Comment: {0}", comment);
                     return;
                 }
+
                 item.Energy = shopItem.Energy;
                 item.ExpireTime = (shopItem.Time == -1) ? -1 : HelperUtils.GetUnixTimestamp(buyTime.AddSeconds(shopItem.Time));
 
@@ -868,7 +895,7 @@ namespace FagNetGame
                 itemsToBuy.Add(new Tuple<Item, ShopItem>(item, shopItem));
             }
 
-            Packet ack;
+            // Packet ack;
             if (player.PEN < penCost || player.AP < apCost)
             {
                 ack = new Packet(EGamePacket.SBuyItemAck);
@@ -897,6 +924,7 @@ namespace FagNetGame
                     session.Send(ack);
                     continue;
                 }
+
                 item.ID = id;
                 item.SetupAPWeapon();
                 player.AddItem(item);
@@ -911,6 +939,7 @@ namespace FagNetGame
                 ack.Write(item.ID);
                 session.Send(ack);
             }
+
             player.UpdateMoney();
         }
 
